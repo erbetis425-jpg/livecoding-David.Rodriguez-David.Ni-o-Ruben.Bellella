@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foro de Mensajes</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="container-fluid">
+        <ul>
+            <li><strong>📝 Foro de Mensajes</strong></li>
+        </ul>
+        <ul id="nav-auth">
+            <li><a href="#inicio" id="nav-home">Inicio</a></li>
+            <li id="nav-mis-mensajes-link" style="display:none;"><a href="#mis-mensajes">Mis Mensajes</a></li>
+            <li id="nav-login-link"><a href="#login">Iniciar Sesión</a></li>
+            <li id="nav-registro-link"><a href="#registro">Registrarse</a></li>
+            <li id="nav-user-info" style="display:none;">
+                <span id="user-email"></span>
+                <a href="#" id="btn-logout">Cerrar Sesión</a>
+            </li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <!-- Vista Home: Foro Público -->
+        <section id="home-section">
+            <article>
+                <header>
+                    <h2>💬 Mensajes del Foro</h2>
+                    <p>Bienvenido al foro público. <a href="#login">Inicia sesión</a> para publicar mensajes.</p>
+                </header>
+                <div id="home-mensajes-lista">
+                    <p aria-busy="true">Cargando mensajes...</p>
+                </div>
+            </article>
+        </section>
+
+        <!-- Vista Login -->
+        <section id="login-section" style="display:none;">
+            <article>
+                <header>
+                    <h2>Iniciar Sesión</h2>
+                </header>
+                <form id="login-form">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" required maxlength="255" placeholder="tu@email.com">
+                    
+                    <label for="login-password">Contraseña</label>
+                    <input type="password" id="login-password" required maxlength="128" placeholder="Tu contraseña">
+                    
+                    <button type="submit">Iniciar Sesión</button>
+                </form>
+                <div id="login-message"></div>
+                <p>¿No tienes cuenta? <a href="#registro">Regístrate aquí</a></p>
+            </article>
+        </section>
+
+        <!-- Vista Registro -->
+        <section id="registro-section" style="display:none;">
+            <article>
+                <header>
+                    <h2>Registrarse</h2>
+                </header>
+                <form id="registro-form">
+                    <label for="registro-email">Email</label>
+                    <input type="email" id="registro-email" required maxlength="255" placeholder="tu@email.com">
+                    
+                    <label for="registro-password">Contraseña</label>
+                    <input type="password" id="registro-password" required minlength="8" maxlength="128" placeholder="Mínimo 8 caracteres">
+                    
+                    <!-- Validaciones visuales de contraseña -->
+                    <div id="password-requirements" style="margin-top: 0.5rem; font-size: 0.875rem;">
+                        <div id="req-length" class="requirement">
+                            <span class="req-icon">○</span> Mínimo 8 caracteres
+                        </div>
+                        <div id="req-uppercase" class="requirement">
+                            <span class="req-icon">○</span> Al menos una mayúscula (A-Z)
+                        </div>
+                        <div id="req-lowercase" class="requirement">
+                            <span class="req-icon">○</span> Al menos una minúscula (a-z)
+                        </div>
+                        <div id="req-number" class="requirement">
+                            <span class="req-icon">○</span> Al menos un número (0-9)
+                        </div>
+                    </div>
+                    
+                    <label for="registro-confirm">Confirmar Contraseña</label>
+                    <input type="password" id="registro-confirm" required minlength="8" maxlength="128" placeholder="Repite tu contraseña">
+                    <div id="password-match" style="margin-top: 0.25rem; font-size: 0.875rem;"></div>
+                    
+                    <button type="submit">Registrarse</button>
+                </form>
+                <div id="registro-message"></div>
+                <p>¿Ya tienes cuenta? <a href="#login">Inicia sesión aquí</a></p>
+            </article>
+        </section>
+
+        <!-- Vista Foro (Usuario Autenticado) -->
+        <section id="foro-section" style="display:none;">
+            <article>
+                <header>
+                    <h2 id="foro-header-title">Publicar Mensaje</h2>
+                </header>
+                <form id="mensaje-form">
+                    <textarea id="mensaje-texto" placeholder="Escribe tu mensaje aquí..." rows="3" maxlength="500" required></textarea>
+                    <small id="char-count">0/500 caracteres</small>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <button type="submit" id="btn-submit-mensaje">Publicar</button>
+                        <button type="button" id="btn-cancel-edit" style="display:none;">Cancelar</button>
+                    </div>
+                </form>
+                <p style="text-align: center; margin-top: 1.5rem; color: var(--text-secondary);">
+                    Tu mensaje se publicará en el <a href="#inicio">foro público</a>
+                </p>
+            </article>
+        </section>
+
+        <!-- Vista Mis Mensajes -->
+        <section id="mis-mensajes-section" style="display:none;">
+            <article>
+                <header style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <h2>📋 Mis Mensajes</h2>
+                        <p>Aquí puedes ver, editar y eliminar tus mensajes</p>
+                    </div>
+                    <a href="#foro" class="btn-nuevo-mensaje">➕ Nuevo Mensaje</a>
+                </header>
+                <div id="mis-mensajes-lista">
+                    <p aria-busy="true">Cargando tus mensajes...</p>
+                </div>
+            </article>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

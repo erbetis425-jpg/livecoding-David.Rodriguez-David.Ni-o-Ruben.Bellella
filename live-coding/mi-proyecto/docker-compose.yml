@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  # Backend Python/Flask
+  backend:
+    build: ./backend-python
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./backend-python:/app
+    environment:
+      - FLASK_ENV=production
+      - SECRET_KEY=mi-secreto-super-seguro-cambiar-en-produccion
+    command: python app.py
+
+  # Frontend
+  frontend:
+    image: nginx:alpine
+    ports:
+      - "8000:80"
+    volumes:
+      - ./frontend:/usr/share/nginx/html
+    depends_on:
+      - backend
